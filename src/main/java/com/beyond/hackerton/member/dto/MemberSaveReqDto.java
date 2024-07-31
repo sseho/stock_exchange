@@ -15,6 +15,7 @@ public class MemberSaveReqDto {
     private String name;
     private String email;
     private String password;
+    private Long wallet;
     private Role role = Role.USER;
 
     public Member toEntity(String password){
@@ -22,6 +23,7 @@ public class MemberSaveReqDto {
                 .name(this.name)
                 .email(this.email)
                 .password(password)
+                .wallet(this.wallet)
                 .role(this.role).build();
     }
 }

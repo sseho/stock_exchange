@@ -22,6 +22,8 @@ public class Member extends BaseTimeEntity {
     private String email;
     @Column(nullable = false)
     private String password;
+    @Builder.Default
+    private Long wallet=0L;
     @Enumerated(EnumType.STRING)
     @Builder.Default
     private Role role = Role.USER;
