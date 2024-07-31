@@ -1,6 +1,7 @@
 package com.beyond.hackerton.stock.service;
 
 import com.beyond.hackerton.stock.domain.Stock;
+import com.beyond.hackerton.stock.domain.StockDetail;
 import com.beyond.hackerton.stock.dto.StockListResDto;
 import com.beyond.hackerton.stock.dto.StockSaveReqDto;
 import com.beyond.hackerton.stock.repository.StockRepository;
@@ -42,6 +43,8 @@ public class StockService {
         Stock stock = null;
         try {
             stock = stockRepository.save(dto.toEntity());
+            stock.getStockDetails().add(new StockDetail(dto.getStock_price(), dto.getStock_quantity(), stock));
+//            stock.getStockDetails().add(StockDetail.builder().stock_price(dto.getStock_price()).stock_quantity(dto.getStock_quantity()).stock(stock).build());
             byte[] bytes = image.getBytes();
             String fileName = stock.getId() + "_" + image.getOriginalFilename();
             Path path = Paths.get("C:/Users/PlayData/Desktop/tmp/", fileName);
