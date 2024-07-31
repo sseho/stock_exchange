@@ -1,11 +1,14 @@
 package com.beyond.hackerton.stock.dto;
 
 import com.beyond.hackerton.stock.domain.Stock;
+import com.beyond.hackerton.stock.domain.StockDetail;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.ArrayList;
 
 @Data
 @Builder
@@ -20,7 +23,6 @@ public class StockSaveReqDto {
     public Stock toEntity(){
         return Stock.builder()
                 .name(this.name)
-                .stock_quantity(this.stock_quantity)
-                .stock_price(this.stock_price).build();
+                .stockDetails(new ArrayList<>()).build();
     }
 }

@@ -5,15 +5,11 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class StockListResDto {
-    private String name;
-    private String image;
-//    private Long now_price;
-    private List<StockDetailResDto> stock_detail;
+public class StockDetailResDto {
+    private Long stock_price;
+    private Long stock_quantity;
 }

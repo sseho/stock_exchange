@@ -1,7 +1,9 @@
 package com.beyond.hackerton.ordering.dto;
 
+import com.beyond.hackerton.member.domain.Member;
 import com.beyond.hackerton.ordering.domain.ImmediateOrder;
 import com.beyond.hackerton.ordering.domain.Ordering;
+import com.beyond.hackerton.stock.domain.Stock;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,16 +17,17 @@ import javax.persistence.Enumerated;
 @AllArgsConstructor
 @NoArgsConstructor
 public class OrderReqDto {
-    private String stock_name;
+    private Long stock_id;
     private String stock_quantity;
     private ImmediateOrder yn;
     private String stock_price;
 
-    public Ordering toEntity(){
+    public Ordering toEntity(Member member, Stock stock) {
         return Ordering.builder()
-                .stock_name(this.stock_name)
+                .member(member)
+                .stock(stock)
                 .stock_quantity(this.stock_quantity)
-                .yn(this.yn)
-                .stock_price(this.stock_price).build();
+                .stock_price(this.stock_price)
+                .yn(this.yn).build();
     }
 }
