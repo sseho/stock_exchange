@@ -7,20 +7,33 @@ import com.beyond.hackerton.member.dto.MemberLoginDto;
 import com.beyond.hackerton.member.dto.MemberSaveReqDto;
 import com.beyond.hackerton.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 @RestController
-@RequiredArgsConstructor
 @RequestMapping("/member")
 public class MemberController {
 
     private final MemberService memberService;
     private final JwtTokenProvider jwtTokenProvider;
+    @Qualifier("refreshtoken")
+    private final RedisTemplate<String, Object> redisTemplate;
+
+    @Autowired
+    public MemberController(MemberService memberService, JwtTokenProvider jwtTokenProvider, @Qualifier("refreshtoken") RedisTemplate<String, Object> redisTemplate, MemberService memberService1, JwtTokenProvider jwtTokenProvider1, RedisTemplate<String, Object> redisTemplate1){
+
+        this.memberService = memberService1;
+        this.jwtTokenProvider = jwtTokenProvider1;
+        this.redisTemplate = redisTemplate1;
+    }
 
     @PostMapping("/create")
     public ResponseEntity<?> create(@RequestBody MemberSaveReqDto dto) {
@@ -34,11 +47,14 @@ public class MemberController {
         Member member = memberService.login(dto);
 
         String jwtToken = jwtTokenProvider.createToken(member.getEmail(),member.getRole().toString());
-//        String refreshToken = jwtTokenProvider.createRefreshToken(member.getEmail(),member.getRole().toString());
+        String refreshToken = jwtTokenProvider.createRefreshToken(member.getEmail(),member.getRole().toString());
+
+        redisTemplate.opsForValue().set(member.getEmail(), refreshToken,240, TimeUnit.HOURS);
 
         Map<String,Object> map = new HashMap<>();
         map.put("id",member.getId());
-        map.put("token",jwtToken);
+        map.put("accessToken",jwtToken);
+        map.put("refreshToken",refreshToken);
         CommonResDto commonResDto = new CommonResDto(HttpStatus.OK,"member login is successful",map);
         return new ResponseEntity(commonResDto,HttpStatus.OK);
     }
