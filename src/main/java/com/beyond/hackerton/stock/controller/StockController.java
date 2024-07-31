@@ -22,8 +22,8 @@ public class StockController {
 
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("create")
-    public ResponseEntity<?> create(@RequestBody StockSaveReqDto dto) {
-        Stock stock = stockService.createStock(dto);
+    public ResponseEntity<?> create(StockSaveReqDto dto) {
+        Stock stock = stockService.createStockAws(dto);
         CommonResDto commonResDto = new CommonResDto(HttpStatus.CREATED,"stock created successful!",stock.getId());
         return new ResponseEntity<>(commonResDto, HttpStatus.CREATED);
     }

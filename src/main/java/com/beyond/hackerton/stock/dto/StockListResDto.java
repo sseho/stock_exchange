@@ -12,4 +12,5 @@ import lombok.NoArgsConstructor;
 public class StockListResDto {
     private String name;
     private Long now_price;
+    private String image;
 }

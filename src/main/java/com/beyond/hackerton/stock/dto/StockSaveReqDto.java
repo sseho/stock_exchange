@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 @Data
 @Builder
@@ -14,6 +15,7 @@ public class StockSaveReqDto {
     private String name;
     private Long stock_quantity;
     private Long stock_price;
+    private MultipartFile image;
 
     public Stock toEntity(){
         return Stock.builder()

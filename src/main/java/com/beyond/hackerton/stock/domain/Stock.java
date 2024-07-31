@@ -23,10 +23,16 @@ public class Stock {
     private String name;
     private Long stock_quantity;
     private Long stock_price;
+    private String image;
 
     public StockListResDto fromEntity() {
         return StockListResDto.builder()
                 .name(this.name)
-                .now_price(this.stock_price).build();
+                .now_price(this.stock_price)
+                .image(this.image).build();
+    }
+
+    public void updateImagePath(String imagePath) {
+        this.image = imagePath;
     }
 }
