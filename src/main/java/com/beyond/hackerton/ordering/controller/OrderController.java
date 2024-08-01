@@ -20,4 +20,9 @@ public class OrderController {
     public void stockBuy(@RequestBody OrderReqDto dto) {
         Ordering ordering = orderService.buyStock(dto);
     }
+
+    @PostMapping("stock/sell")
+    public void stockSell(@RequestBody OrderReqDto dto) {
+
+    }
 }

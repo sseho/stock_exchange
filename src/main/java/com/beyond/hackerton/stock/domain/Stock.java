@@ -31,6 +31,7 @@ public class Stock {
             stockDetailResDtos.add(stockDetail.fromEntity());
         }
         return StockListResDto.builder()
+                .stock_id(this.id)
                 .name(this.name)
                 .stock_detail(stockDetailResDtos)
                 .image(this.image).build();

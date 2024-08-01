@@ -2,6 +2,7 @@ package com.beyond.hackerton.ordering.service;
 
 import com.beyond.hackerton.member.domain.Member;
 import com.beyond.hackerton.member.repository.MemberRepository;
+import com.beyond.hackerton.ordering.domain.ImmediateOrder;
 import com.beyond.hackerton.ordering.domain.Ordering;
 import com.beyond.hackerton.ordering.dto.OrderReqDto;
 import com.beyond.hackerton.ordering.repository.OrderRepository;
@@ -28,6 +29,11 @@ public class OrderService {
         Member member = memberRepository.findByEmail(email).orElseThrow(()->new EntityNotFoundException("Member not found"));
         Stock stock = stockRepository.findById(dto.getStock_id()).orElseThrow(()->new EntityNotFoundException("Stock not found"));
         Ordering ordering = dto.toEntity(member,stock);
+        if(ordering.getYn().equals(ImmediateOrder.Y)){
+
+        }else{
+
+        }
         return null;
     }
 }

@@ -40,7 +40,7 @@ public class RedisConfig {
 //  redisTamplate은 redis와 상호작용할 때 redis key,value의 형식을 정의
     @Bean
     @Qualifier("refreshtoken")
-    public RedisTemplate<String, Object> refreshtokenRedisTemplate(@Qualifier("refreshtoken") RedisConnectionFactory factory){
+    public RedisTemplate<String, Object> redisTemplate(@Qualifier("refreshtoken") RedisConnectionFactory factory){
         RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
         redisTemplate.setKeySerializer(new StringRedisSerializer());
         redisTemplate.setValueSerializer(new GenericJackson2JsonRedisSerializer());
@@ -52,25 +52,25 @@ public class RedisConfig {
 //    redisTemplate.opsForValue().increment or decrement
 
 
-//    @Bean
-//    @Qualifier("4")
-//    public RedisConnectionFactory stockFactory(){
-//        RedisStandaloneConfiguration configuration = new RedisStandaloneConfiguration();
-//        configuration.setHostName(host);
-//        configuration.setPort(port);
-////        2번 db 사용
-//        configuration.setDatabase(2);
-//        return new LettuceConnectionFactory(configuration);
-//    }
-//
-//    //  redisTamplate은 redis와 상호작용할 때 redis key,value의 형식을 정의
-//    @Bean
-//    @Qualifier("4")
-//    public RedisTemplate<String, Object> stockRedisTemplate(@Qualifier("4") RedisConnectionFactory factory){
-//        RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
-//        redisTemplate.setKeySerializer(new StringRedisSerializer());
-//        redisTemplate.setValueSerializer(new GenericJackson2JsonRedisSerializer());
-//        redisTemplate.setConnectionFactory(factory); // 매개변수로 받은 RedisConnectionFactory 객체 값을 넣어줘야 경로가 지정한대로 설정된다
-//        return redisTemplate;
-//    }
+    @Bean
+    @Qualifier("stock")
+    public RedisConnectionFactory stockFactory(){
+        RedisStandaloneConfiguration configuration = new RedisStandaloneConfiguration();
+        configuration.setHostName(host);
+        configuration.setPort(port);
+//        2번 db 사용
+        configuration.setDatabase(1);
+        return new LettuceConnectionFactory(configuration);
+    }
+
+    //  redisTamplate은 redis와 상호작용할 때 redis key,value의 형식을 정의
+    @Bean
+    @Qualifier("stock")
+    public RedisTemplate<String, Object> stockRedisTemplate(@Qualifier("stock") RedisConnectionFactory factory){
+        RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
+        redisTemplate.setKeySerializer(new StringRedisSerializer());
+        redisTemplate.setValueSerializer(new GenericJackson2JsonRedisSerializer());
+        redisTemplate.setConnectionFactory(factory); // 매개변수로 받은 RedisConnectionFactory 객체 값을 넣어줘야 경로가 지정한대로 설정된다
+        return redisTemplate;
+    }
 }

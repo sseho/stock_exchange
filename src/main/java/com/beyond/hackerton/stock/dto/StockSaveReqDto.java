@@ -1,5 +1,6 @@
 package com.beyond.hackerton.stock.dto;
 
+import com.beyond.hackerton.member.domain.Member;
 import com.beyond.hackerton.stock.domain.Stock;
 import com.beyond.hackerton.stock.domain.StockDetail;
 import lombok.AllArgsConstructor;

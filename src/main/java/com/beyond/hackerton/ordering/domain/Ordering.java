@@ -24,12 +24,15 @@ public class Ordering extends BaseTimeEntity {
 
     @Enumerated(EnumType.STRING)
     private ImmediateOrder yn;
+
     @Enumerated(EnumType.STRING)
     @Builder.Default
     private ExecutionYN yn_execution = ExecutionYN.N;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "stock_id")
     private Stock stock;

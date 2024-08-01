@@ -4,17 +4,14 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.List;
+import org.springframework.web.multipart.MultipartFile;
 
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class StockListResDto {
+public class StockSellReqDto {
     private Long stock_id;
-    private String name;
-    private String image;
-//    private Long now_price;
-    private List<StockDetailResDto> stock_detail;
+    private Long stock_quantity;
+    private Long stock_price;
 }

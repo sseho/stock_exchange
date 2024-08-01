@@ -1,5 +1,6 @@
 package com.beyond.hackerton.stock.domain;
 
+import com.beyond.hackerton.member.domain.Member;
 import com.beyond.hackerton.stock.dto.StockDetailResDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -22,11 +23,15 @@ public class StockDetail {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "stock_id")
     private Stock stock;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id")
+    private Member member;
 
-    public StockDetail(Long stockPrice, Long stockQuantity, Stock stock) {
+    public StockDetail(Long stockPrice, Long stockQuantity, Stock stock, Member member) {
         this.stock_price = stockPrice;
         this.stock_quantity = stockQuantity;
         this.stock = stock;
+        this.member = member;
     }
 
     public StockDetailResDto fromEntity() {

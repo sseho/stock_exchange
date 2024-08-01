@@ -28,11 +28,11 @@ public class MemberController {
     private final RedisTemplate<String, Object> redisTemplate;
 
     @Autowired
-    public MemberController(MemberService memberService, JwtTokenProvider jwtTokenProvider, @Qualifier("refreshtoken") RedisTemplate<String, Object> redisTemplate, MemberService memberService1, JwtTokenProvider jwtTokenProvider1, RedisTemplate<String, Object> redisTemplate1){
+    public MemberController(MemberService memberService, JwtTokenProvider jwtTokenProvider, @Qualifier("refreshtoken") RedisTemplate<String, Object> redisTemplate){
 
-        this.memberService = memberService1;
-        this.jwtTokenProvider = jwtTokenProvider1;
-        this.redisTemplate = redisTemplate1;
+        this.memberService = memberService;
+        this.jwtTokenProvider = jwtTokenProvider;
+        this.redisTemplate = redisTemplate;
     }
 
     @PostMapping("/create")
