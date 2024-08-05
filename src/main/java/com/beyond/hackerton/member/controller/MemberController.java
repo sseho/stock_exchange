@@ -6,7 +6,6 @@ import com.beyond.hackerton.member.domain.Member;
 import com.beyond.hackerton.member.dto.MemberLoginDto;
 import com.beyond.hackerton.member.dto.MemberSaveReqDto;
 import com.beyond.hackerton.member.service.MemberService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.redis.core.RedisTemplate;

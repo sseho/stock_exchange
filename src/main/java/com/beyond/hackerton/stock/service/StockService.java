@@ -29,7 +29,6 @@ import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -56,14 +55,11 @@ public class StockService {
         try {
             stock = stockRepository.save(dto.toEntity());
             stock.getStockDetails().add(new StockDetail(dto.getStock_price(), dto.getStock_quantity(), stock, member));
-//            stock.getStockDetails().add(StockDetail.builder().stock_price(dto.getStock_price()).stock_quantity(dto.getStock_quantity()).stock(stock).build());
             byte[] bytes = image.getBytes();
             String fileName = stock.getId() + "_" + image.getOriginalFilename();
             Path path = Paths.get("C:/Users/PlayData/Desktop/tmp/", fileName);
-//            local pc에 임시 저장
             Files.write(path, bytes, StandardOpenOption.CREATE, StandardOpenOption.WRITE);
 
-//            aws에 pc에 저장된 파일을 업로드
             PutObjectRequest putObjectRequest = PutObjectRequest.builder()
                     .bucket(bucket)
                     .key(fileName)

@@ -21,14 +21,13 @@ public class JwtTokenProvider {
     private int expirationRt;
 
     public String createToken(String email, String role) {
-//        Claims는 사용자 정보(페이로드 정보)
         Claims claims = Jwts.claims().setSubject(email);
         claims.put("role", role);
         Date now = new Date();
         String token = Jwts.builder()
                 .setClaims(claims)
-                .setIssuedAt(now) // 생성시간                 일수 시간 분 초 밀리초
-                .setExpiration(new Date(now.getTime()+expiration*24*60*60*1000L)) // 만료시간 30분
+                .setIssuedAt(now)
+                .setExpiration(new Date(now.getTime()+expiration*24*60*60*1000L))
                 .signWith(SignatureAlgorithm.HS256,secretKey)
                 .compact();
         return token;
@@ -40,8 +39,8 @@ public class JwtTokenProvider {
         Date now = new Date();
         String token = Jwts.builder()
                 .setClaims(claims)
-                .setIssuedAt(now) // 생성시간                   일수 시간 분 초 밀리초
-                .setExpiration(new Date(now.getTime()+expirationRt*24*60*60*1000L)) // 만료시간 30분
+                .setIssuedAt(now)
+                .setExpiration(new Date(now.getTime()+expirationRt*24*60*60*1000L))
                 .signWith(SignatureAlgorithm.HS256,secretKeyRt)
                 .compact();
         return token;
